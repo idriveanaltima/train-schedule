@@ -12,11 +12,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="javascript/main.js"></script>
   <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 </head>
 
 <body>
-
-   
   <div class="container">
 
       <table class="table table-striped" id="trainInfo">
@@ -30,27 +29,6 @@
             </tr>
           </thead>
           <tbody>
-            <!-- <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>5</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>10</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-              <td>15</td>
-            </tr> -->
           </tbody>
         </table>
   
@@ -58,25 +36,25 @@
       <div class="form-group row">
         <label for="train" class="col-sm-2 col-form-label">Train Name</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="train" placeholder="Thomas the train?">
+          <input type="text" class="form-control" id="train" placeholder="Thomas the train?" required>
         </div>
       </div>
       <div class="form-group row">
         <label for="destination" class="col-sm-2 col-form-label">Destination</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="destination" placeholder="Where are you going?">
+          <input type="text" class="form-control" id="destination" placeholder="Where are you going?" required>
         </div>
       </div>
       <div class="form-group row">
-        <label for="time" class="col-sm-2 col-form-label">Time</label>
+        <label for="time" class="col-sm-2 col-form-label">First Train Time</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="time" placeholder="HH:mm - Military Time">
+          <input type="text" class="form-control" id="time" placeholder="HH:mm - 24h Time" required>
         </div>
       </div>
       <div class="form-group row">
         <label for="frequency" class="col-sm-2 col-form-label">Frequency</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="frequency" placeholder="minutes">
+          <input type="text" class="form-control" id="frequency" placeholder="minutes" required>
         </div>
       </div>
       <button class="btn btn-primary btn-lg" id="submit" type="submit">Submit</button>

@@ -1,4 +1,4 @@
-$(document).ready( function () {
+$(document).ready(function () {
 
   var config = {
     apiKey: "AIzaSyCliVOrML9NDv_Dzn6xAW5oKbILEhv-UB4",
@@ -11,38 +11,56 @@ $(document).ready( function () {
   firebase.initializeApp(config);
 
   var database = firebase.database();
- 
+  var getTrainName;
+  var getDestination;
+  var startTime;
+  var frequency;
+  var minutesAway;
+  var nextTrain;
 
   $("form").on("click", "#submit", function () {
-    var train = $("#train").val().trim();
-    var destination = $("#destination").val().trim();
-    var time = $("#time").val().trim();
-    var frequency = $("#frequency").val().trim();
+    var trainInput = $("#train").val().trim();
+    var destinationInput = $("#destination").val().trim();
+    var timeInput = $("#time").val().trim();
+    var frequencyInput = $("#frequency").val().trim();
 
-  database.ref().push({
-      trainName: train,
-      destination: destination,
-      time: time,
-      frequency: frequency,
+    database.ref().push({
+      trainName: trainInput,
+      destination: destinationInput,
+      time: timeInput,
+      frequency: frequencyInput
     });
   });
 
-function getTrains () {
 
-database.ref().on("child_added", function(childSnapshot) {
+    database.ref().on("child_added", function (childSnapshot) {
 
-  console.log(childSnapshot.val())
+    getTrainName = childSnapshot.val().trainName;
+    getDestination = childSnapshot.val().destination;
+    startTime = childSnapshot.val().time;
+    frequency = childSnapshot.val().frequency;
 
-  // Store everything into a variable.
-  var getTrainName = childSnapshot.val().trainName;
-  var getDestination = childSnapshot.val().destination;
-  var getTime = childSnapshot.val().time;
-  var getFrequency = childSnapshot.val().frequency;
+   
+    calculateTrainInfo();
 
+      $("#trainInfo > tbody").append("<tr><td>" + getTrainName + "</td><td>" + getDestination + "</td><td>" +
+        frequency + "</td><td>" +nextTrain+"</td><td>" +minutesAway+ "</td>");
 
-  $("#trainInfo > tbody").append("<tr><td>" + getTrainName+ "</td><td>" + getDestination + "</td><td>" +
-  getFrequency + "</td><td>" + getTime + "</td><td> add info </td><td>");
-});
-};
-getTrains()
+    });
+
+    function calculateTrainInfo () {
+
+      var start = moment(startTime, "HH:mm")
+      var differenceInTimes = moment(start).diff(moment(), "minutes");
+      var remainder = differenceInTimes % frequency
+      minutesAway = frequency - remainder
+      var nextTrainTime = moment().add(minutesAway, "minutes");
+      nextTrain = moment(nextTrainTime).format("hh:mm A")
+         return {
+          minutesAway, 
+          nextTrain       
+         }
+
+    }
+
 });
