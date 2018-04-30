@@ -33,34 +33,31 @@ $(document).ready(function () {
   });
 
 
-    database.ref().on("child_added", function (childSnapshot) {
+  database.ref().on("child_added", function (childSnapshot) {
 
     getTrainName = childSnapshot.val().trainName;
     getDestination = childSnapshot.val().destination;
     startTime = childSnapshot.val().time;
     frequency = childSnapshot.val().frequency;
 
-   
     calculateTrainInfo();
 
-      $("#trainInfo > tbody").append("<tr><td>" + getTrainName + "</td><td>" + getDestination + "</td><td>" +
-        frequency + "</td><td>" +nextTrain+"</td><td>" +minutesAway+ "</td>");
+    $("#trainInfo > tbody").append("<tr><td>" + getTrainName + "</td><td>" + getDestination + "</td><td>" +
+      frequency + "</td><td>" + nextTrain + "</td><td>" + minutesAway + "</td>");
 
-    });
+  });
 
-    function calculateTrainInfo () {
+  function calculateTrainInfo() {
 
-      var start = moment(startTime, "HH:mm")
-      var differenceInTimes = moment(start).diff(moment(), "minutes");
-      var remainder = differenceInTimes % frequency
-      minutesAway = frequency - remainder
-      var nextTrainTime = moment().add(minutesAway, "minutes");
-      nextTrain = moment(nextTrainTime).format("hh:mm A")
-         return {
-          minutesAway, 
-          nextTrain       
-         }
-
+    var start = moment(startTime, "HH:mm")
+    var differenceInTimes = moment(start).diff(moment(), "minutes");
+    var remainder = differenceInTimes % frequency
+    minutesAway = frequency - remainder
+    var nextTrainTime = moment().add(minutesAway, "minutes");
+    nextTrain = moment(nextTrainTime).format("hh:mm A")
+    return {
+      minutesAway,
+      nextTrain
     }
-
+  }
 });
