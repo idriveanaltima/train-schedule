@@ -51,9 +51,7 @@ $(document).ready(function () {
 
     var start = moment(startTime, "HH:mm")
     var differenceInTimes = moment().diff(start, "minutes");
-    console.log(differenceInTimes)
     var remainder = differenceInTimes % frequency
-    console.log(remainder)
     minutesAway = frequency - remainder
     var nextTrainTime = moment().add(minutesAway, "minutes");
     nextTrain = moment(nextTrainTime).format("hh:mm A")
